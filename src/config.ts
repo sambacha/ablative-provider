@@ -50,3 +50,18 @@ export const OPENMEV_METAMASK_NETWORKS: {
     blockExplorerUrls: ['https://etherscan.io'],
   },
 }
+
+
+/**
+ * Checks whether the given value is a 0x-prefixed, non-zero, non-zero-padded,
+ * hexadecimal string.
+ *
+ * @param {any} value - The value to check.
+ * @returns {boolean} True if the value is a correctly formatted hex string,
+ */
+ export function isPrefixedFormattedHexString(value) {
+  if (typeof value !== 'string') {
+    return false;
+  }
+  return /^0x[1-9a-f]+[0-9a-f]*$/iu.test(value);
+}

@@ -1,6 +1,7 @@
 import {
   Ether,
 } from './AbstractCurrency'
+import RPC from './rpc';
 
 export const ROPSTEN = 'ropsten';
 export const RINKEBY = 'rinkeby';
@@ -105,6 +106,8 @@ export const NETWORK_TO_NAME_MAP = {
 export const CHAIN_ID_TO_TYPE_MAP = Object.entries(
   NETWORK_TYPE_TO_ID_MAP,
 ).reduce((chainIdToTypeMap, [networkType, { chainId }]) => {
+  // @note the initial value {} is intentional
+  // @ts-expect-error
   chainIdToTypeMap[chainId] = networkType;
   return chainIdToTypeMap;
 }, {});
@@ -121,15 +124,10 @@ export const CHAIN_ID_TO_RPC_URL_MAP = {
 
 export const OPENMEV_RELAY_ENABLED = false
 
-export const OPENMEV_SUPPORTED_NETWORKS = [ChainId.MAINNET]
 
-export const OPENMEV_URI: { [chainId in ChainId]?: string } = {
-  [ChainId.MAINNET]: RPC[ChainId.MAINNET],
-}
 
-export const OPENMEV_GAS_URI: { [chainId in ChainId]?: string } = {
-  [ChainId.MAINNET]: `${RPC[ChainId.MAINNET]}/gas-price`,
-}
+
+
 
 export enum OPENMEV_METAMASK_CHAIN_ID {
   MAINNET = '0x1111100000',
@@ -137,8 +135,14 @@ export enum OPENMEV_METAMASK_CHAIN_ID {
 
 export const OPENMEV_METAMASK_SUPPORTED_NETWORKS = [OPENMEV_METAMASK_CHAIN_ID.MAINNET]
 
-export const ChainId: string | number | any | 0x1;
+export let ChainId: string | number | any | 0x1;
 
+export let OPENMEV_SUPPORTED_NETWORKS = [ChainId.MAINNET]
+
+
+export const OPENMEV_URI: { [chainId in ChainId]?: string } = {
+  [ChainId.MAINNET]: RPC[ChainId.MAINNET],
+}
 
 
 export const NATIVE = {
@@ -147,27 +151,8 @@ export const NATIVE = {
   [ChainId.RINKEBY]: Ether.onChain(ChainId.RINKEBY),
   [ChainId.GÖRLI]: Ether.onChain(ChainId.GÖRLI),
   [ChainId.KOVAN]: Ether.onChain(ChainId.KOVAN),
-  [ChainId.FANTOM]: Fantom.onChain(ChainId.FANTOM),
-  [ChainId.FANTOM_TESTNET]: Fantom.onChain(ChainId.FANTOM_TESTNET),
-  [ChainId.MATIC]: Matic.onChain(ChainId.MATIC),
-  [ChainId.MATIC_TESTNET]: Matic.onChain(ChainId.MATIC_TESTNET),
-  [ChainId.XDAI]: xDai.onChain(ChainId.XDAI),
-  [ChainId.BSC]: Binance.onChain(ChainId.BSC),
-  [ChainId.BSC_TESTNET]: Binance.onChain(ChainId.BSC_TESTNET),
-  // [ChainId.MOONBEAM_TESTNET]: Currency.GLMR,
   [ChainId.ARBITRUM]: Ether.onChain(ChainId.ARBITRUM),
-  [ChainId.AVALANCHE]: Avalanche.onChain(ChainId.AVALANCHE),
-  [ChainId.AVALANCHE_TESTNET]: Avalanche.onChain(ChainId.AVALANCHE_TESTNET),
-  [ChainId.HECO]: Heco.onChain(ChainId.HECO),
-  [ChainId.HECO_TESTNET]: Heco.onChain(ChainId.HECO_TESTNET),
-  [ChainId.HARMONY]: Harmony.onChain(ChainId.HARMONY),
-  [ChainId.HARMONY_TESTNET]: Harmony.onChain(ChainId.HARMONY_TESTNET),
-  [ChainId.OKEX]: Okex.onChain(ChainId.OKEX),
-  [ChainId.OKEX_TESTNET]: Okex.onChain(ChainId.OKEX_TESTNET),
-  [ChainId.CELO]: Celo.onChain(ChainId.CELO),
-  [ChainId.PALM]: Palm.onChain(ChainId.PALM),
-  [ChainId.MOONRIVER]: Movr.onChain(ChainId.MOONRIVER),
-  [ChainId.FUSE]: Fuse.onChain(ChainId.FUSE)
+
 }
 
 export default ChainId;

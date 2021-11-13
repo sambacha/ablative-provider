@@ -5,8 +5,8 @@
 
 import * as ChainId from './ChainId'
 
-const rpc = {
+const RPC = {
   [ChainId.MAINNET]: 'https://api.sushirelay.com/v1',
 }
 
-export default rpc
+export default RPC
