@@ -1,12 +1,12 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { ChainId } from '@sushiswap/sdk'
+import { ChainId } from './ChainId'
 import RPC from './rpc'
 
 export const OPENMEV_RELAY_ENABLED = false
 
 export const OPENMEV_SUPPORTED_NETWORKS = [ChainId.MAINNET]
 
-export const OPENMEV_URI: { [chainId in ChainId]?: string } = {
+export const OPENMEV_URI: { [chainId in ChainId]?: string | number | 0x1 } = {
   [ChainId.MAINNET]: RPC[ChainId.MAINNET],
 }
 
@@ -14,11 +14,6 @@ export const OPENMEV_GAS_URI: { [chainId in ChainId]?: string } = {
   [ChainId.MAINNET]: `${RPC[ChainId.MAINNET]}/gas-price`,
 }
 
-/**
- *
- * @export OPENMEV_METAMASK_CHAIN_ID
- * @enum {number}
- */
 export enum OPENMEV_METAMASK_CHAIN_ID {
   MAINNET = '0x1111100000',
 }
@@ -35,15 +30,14 @@ export const OPENMEV_METAMASK_CHAIN_ID_TO_NETWORK: { [id in OPENMEV_METAMASK_CHA
 
 export const OPENMEV_METAMASK_NETWORKS: {
   [chainId in ChainId]?: {
-    chainId: string
+    chainId: (string | number)
     chainName: string
     nativeCurrency: {
       name: string
       symbol: string
       decimals: number
     }
-    // @ts-ignore
-    rpcUrls: string[]
+    rpcUrls: string;
     blockExplorerUrls?: string[]
     iconUrls?: string[]
   }

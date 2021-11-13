@@ -1,13 +1,28 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
+/**
+* @file Ablative Provider
+* @version 2021.11
+* @copyright Manifold Finance, Inc. 2021
+* @license AGPL-3.0
+*/
+
 import { AbstractConnectorArguments, ConnectorUpdate } from '@web3-react/types'
-import warning from 'tiny-warning'
 import { OPENMEV_METAMASK_CHAIN_ID_TO_NETWORK, OPENMEV_METAMASK_SUPPORTED_NETWORKS } from './config'
 import { Send, SendOld, SendReturn, SendReturnResult } from './types'
+
+import { AbstractConnector } from '@web3-react/abstract-connector'
+import warning from 'tiny-warning'
 
 function parseSendReturn(sendReturn: SendReturnResult | SendReturn): any {
   return sendReturn.hasOwnProperty('result') ? sendReturn.result : sendReturn
 }
 
+/**
+ *
+ * NoEthereumProviderError
+ * @export
+ * @class NoEthereumProviderError
+ * @extends {Error}
+ */
 export class NoEthereumProviderError extends Error {
   public constructor() {
     super()
@@ -16,6 +31,13 @@ export class NoEthereumProviderError extends Error {
   }
 }
 
+/**
+ *
+ * UserRejectedRequestError
+ * @export
+ * @class UserRejectedRequestError
+ * @extends {Error}
+ */
 export class UserRejectedRequestError extends Error {
   public constructor() {
     super()
@@ -24,6 +46,13 @@ export class UserRejectedRequestError extends Error {
   }
 }
 
+/**
+ *
+ * InjectedConnector
+ * @export
+ * @class InjectedConnector
+ * @extends {AbstractConnector}
+ */
 export class InjectedConnector extends AbstractConnector {
   constructor(kwargs: AbstractConnectorArguments) {
     super(kwargs)
@@ -34,7 +63,7 @@ export class InjectedConnector extends AbstractConnector {
     this.handleClose = this.handleClose.bind(this)
   }
 
-  private handleChainChanged(chainId: string | number): void {
+  private handleChainChanged(chainId: any): void {
     const newChainId = OPENMEV_METAMASK_SUPPORTED_NETWORKS.find((id) => id === chainId)
     if (newChainId) {
       chainId = OPENMEV_METAMASK_CHAIN_ID_TO_NETWORK[newChainId]
@@ -51,6 +80,7 @@ export class InjectedConnector extends AbstractConnector {
     }
   }
 
+  // @ts-ignore
   private handleClose(code: number, reason: string): void {
     this.emitDeactivate()
   }

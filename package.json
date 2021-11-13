@@ -8,7 +8,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -35,6 +35,8 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
+    "@babel/plugin-transform-react-jsx": "^7.16.0",
+    "@babel/plugin-transform-typescript": "^7.16.1",
     "@babel/preset-env": "^7.16.0",
     "@babel/register": "^7.16.0",
     "@ethersproject/bignumber": "^5.5.0",
@@ -56,7 +58,9 @@
     "@ethersproject/web": "^5.5.0",
     "@web3-react/abstract-connector": "^6.0.7",
     "@web3-react/types": "^6.0.7",
+    "ctix": "^0.3.1",
     "ethers": "^5.5.1",
+    "idx": "^2.5.6",
     "tiny-invariant": "^1.2.0",
     "tiny-warning": "^1.0.3"
   }
